@@ -11,16 +11,27 @@ namespace AzureApiApp.Controllers
     {
         // GET api/values
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            using (var client = new System.Net.Http.HttpClient())
+            {
+                var response = await client.GetAsync("http://transport.opendata.ch/v1/stationboard?station=Nyon&limit=10");
+                if(response != null && response.IsSuccessStatusCode) {
+                    var responseBody = await response.Content.ReadAsStringAsync();
+
+                    
+                    var objResponse = Newtonsoft.Json.Linq.JObject.Parse(responseBody);
+                    return objResponse["stationboard"].ToString();
+                }
+            }
+            return string.Empty;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            return string.Empty;
         }
 
         // POST api/values
