@@ -32,7 +32,7 @@ namespace AzureApiApp.Controllers
         {
             using (var client = new System.Net.Http.HttpClient())
             {
-                var response = await client.GetAsync("http://transport.opendata.ch/v1/stationboard?station=Lausanne&limit=10");
+                var response = await client.GetAsync($"http://transport.opendata.ch/v1/stationboard?station={id}&limit=10");
                 if(response != null && response.IsSuccessStatusCode) {
                     var responseBody = await response.Content.ReadAsStringAsync();
                     
