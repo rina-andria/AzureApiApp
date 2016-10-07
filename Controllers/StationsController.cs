@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace AzureApiApp.Controllers
 {
     [Route("api/[controller]")]
-    public class StationboardController : Controller
+    public class StationsController : Controller
     {
         // GET api/values
         [HttpGet]
@@ -20,7 +20,8 @@ namespace AzureApiApp.Controllers
                     var responseBody = await response.Content.ReadAsStringAsync();
                     
                     var objResponse = JsonConvert.DeserializeObject<StationboardResult>(responseBody);
-                    return objResponse.Stationboard;
+                    if(objResponse != null)
+                        return objResponse.Stationboard;
                 }
             }
             return new List<Stationboard>();
@@ -37,7 +38,8 @@ namespace AzureApiApp.Controllers
                     var responseBody = await response.Content.ReadAsStringAsync();
                     
                     var objResponse = JsonConvert.DeserializeObject<StationboardResult>(responseBody);
-                    return objResponse.Stationboard;
+                    if(objResponse != null)
+                        return objResponse.Stationboard;
                 }
             }
             return new List<Stationboard>();

@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:1479/",
+      "applicationUrl": "http://localhost:14790/",
       "sslPort": 0
     }
   },
@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/stationboard/nyon",
+      "launchUrl": "api/stations/nyon",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,7 +19,7 @@
     "AzureApiApp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/stationboard/nyon",
+      "launchUrl": "http://localhost:5000/api/stations/nyon",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
