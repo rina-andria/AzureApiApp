@@ -1,30 +1,29 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using AzureApiApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace AzureApiApp.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class StationboardController : Controller
     {
         // GET api/values
         [HttpGet]
-        public async Task<string> Get()
+        public async Task<IList<Stationboard>> Get(string station)
         {
             using (var client = new System.Net.Http.HttpClient())
             {
-                var response = await client.GetAsync("http://transport.opendata.ch/v1/stationboard?station=Nyon&limit=10");
+                var response = await client.GetAsync($"http://transport.opendata.ch/v1/stationboard?station={station}&limit=10");
                 if(response != null && response.IsSuccessStatusCode) {
                     var responseBody = await response.Content.ReadAsStringAsync();
-
                     
-                    var objResponse = Newtonsoft.Json.Linq.JObject.Parse(responseBody);
-                    return objResponse["stationboard"].ToString();
+                    var objResponse = JsonConvert.DeserializeObject<StationboardResult>(responseBody);
+                    return objResponse.Stationboard;
                 }
             }
-            return string.Empty;
+            return new List<Stationboard>();
         }
 
         // GET api/values/5
