@@ -11,11 +11,11 @@ namespace AzureApiApp.Controllers
     {
         // GET api/values
         [HttpGet]
-        public async Task<IList<Stationboard>> Get(string station)
+        public async Task<IList<Stationboard>> Get()
         {
             using (var client = new System.Net.Http.HttpClient())
             {
-                var response = await client.GetAsync($"http://transport.opendata.ch/v1/stationboard?station={station}&limit=10");
+                var response = await client.GetAsync("http://transport.opendata.ch/v1/stationboard?station=Lausanne&limit=10");
                 if(response != null && response.IsSuccessStatusCode) {
                     var responseBody = await response.Content.ReadAsStringAsync();
                     
@@ -28,9 +28,19 @@ namespace AzureApiApp.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IList<Stationboard>> Get(string id)
         {
-            return string.Empty;
+            using (var client = new System.Net.Http.HttpClient())
+            {
+                var response = await client.GetAsync("http://transport.opendata.ch/v1/stationboard?station=Lausanne&limit=10");
+                if(response != null && response.IsSuccessStatusCode) {
+                    var responseBody = await response.Content.ReadAsStringAsync();
+                    
+                    var objResponse = JsonConvert.DeserializeObject<StationboardResult>(responseBody);
+                    return objResponse.Stationboard;
+                }
+            }
+            return new List<Stationboard>();
         }
 
         // POST api/values
