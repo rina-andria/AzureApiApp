@@ -45,8 +45,14 @@ namespace AzureApiApp.Controllers
                                         SectionNumer = SectionNumber,
                                         JourneyName = Section.Journey != null ? Section.Journey.Name : "Walk",
                                         DepartureStation = Section.Departure.Station.Name,
+                                        DepartureTime = Section.Departure.DepartureTime,
                                         ArrivalStation = Section.Arrival.Station.Name,
-                                        Duration = Section.Arrival.ArrivalTime.Subtract(Section.Departure.DepartureTime)
+                                        Arrivaltime = Section.Arrival.ArrivalTime,
+                                        Duration = Section.Arrival.ArrivalTime.Subtract(Section.Departure.DepartureTime),
+                                        DepartureXCoordinate = Section.Departure.Location.Coordinate.X,
+                                        DepartureYCoordinate = Section.Departure.Location.Coordinate.Y,
+                                        ArrivalXCoordinate = Section.Arrival.Location.Coordinate.X,
+                                        ArrivalYCoordinate = Section.Arrival.Location.Coordinate.Y
                                     });
                                     SectionNumber++;
                                 }
@@ -56,7 +62,7 @@ namespace AzureApiApp.Controllers
                             return SectionResultList;
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // in case an error occured, we do not return any data
                     }
@@ -99,6 +105,12 @@ namespace AzureApiApp.Controllers
         public string DepartureStation { get; set; }
         public string ArrivalStation { get; set; }
         public TimeSpan Duration { get; set; }
+        public DateTime DepartureTime { get; set; }
+        public DateTime Arrivaltime { get; set; }
+        public double DepartureXCoordinate { get; set; }
+        public double DepartureYCoordinate { get; set; }
+        public double ArrivalXCoordinate { get; set; }
+        public double ArrivalYCoordinate { get; set; }
     }
 }
 
