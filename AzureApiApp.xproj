@@ -19,5 +19,8 @@
     <DnxInvisibleFolder Include=".vscode\" />
     <DnxInvisibleFolder Include=".vs\" />
   </ItemGroup>
+  <ItemGroup>
+    <DnxInvisibleContent Include="Controllers\.DS_Store" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>

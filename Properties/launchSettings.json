@@ -11,7 +11,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/stations/nyon",
+      "launchUrl": "api/connections",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,7 +19,7 @@
     "AzureApiApp": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/stations/nyon",
+      "launchUrl": "http://localhost:5000/api/connections",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
