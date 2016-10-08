@@ -52,6 +52,7 @@ namespace AzureApiApp.Controllers
                                     Name = Station.Name,
                                     CoordinateX = Station.Coordinate.X,
                                     CoordinateY = Station.Coordinate.Y,
+                                    Location = $"{Station.Coordinate.X}, {Station.Coordinate.Y}",
                                     Distance = Station.Distance,
                                     Id = Station.Id,
                                     Score = Station.Score
@@ -98,4 +99,5 @@ public class StationResult
     public double CoordinateX { get; set; }
     public double CoordinateY { get; set; }
     public object Distance { get; set; }
+    public string Location { get; set; }
 }
