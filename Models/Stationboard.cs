@@ -27,7 +27,7 @@ namespace AzureApiApp.Models
         public string Name { get; set; }
 
         [JsonProperty("score")]
-        public int Score { get; set; }
+        public int? Score { get; set; }
 
         [JsonProperty("coordinate")]
         public Coordinate Coordinate { get; set; }
@@ -49,10 +49,10 @@ namespace AzureApiApp.Models
         public object Departure { get; set; }
 
         [JsonProperty("capacity1st")]
-        public int Capacity1st { get; set; }
+        public int? Capacity1st { get; set; }
 
         [JsonProperty("capacity2nd")]
-        public int Capacity2nd { get; set; }
+        public int? Capacity2nd { get; set; }
     }
 
     public class Location
@@ -65,7 +65,7 @@ namespace AzureApiApp.Models
         public string Name { get; set; }
 
         [JsonProperty("score")]
-        public object Score { get; set; }
+        public int? Score { get; set; }
 
         [JsonProperty("coordinate")]
         public Coordinate Coordinate { get; set; }
@@ -173,10 +173,10 @@ namespace AzureApiApp.Models
         public IList<PassList> PassList { get; set; }
 
         [JsonProperty("capacity1st")]
-        public object Capacity1st { get; set; }
+        public int? Capacity1st { get; set; }
 
         [JsonProperty("capacity2nd")]
-        public object Capacity2nd { get; set; }
+        public int? Capacity2nd { get; set; }
     }
 
     public class StationboardResult

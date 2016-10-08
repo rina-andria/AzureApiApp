@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AzureApiApp.Models;
@@ -13,15 +14,16 @@ namespace AzureApiApp.Controllers
         [HttpGet]
         public async Task<IList<Stationboard>> Get()
         {
-            using (var client = new System.Net.Http.HttpClient())
+            using (var Client = new System.Net.Http.HttpClient())
             {
-                var response = await client.GetAsync("http://transport.opendata.ch/v1/stationboard?station=Lausanne&limit=10");
+                // ReSharper disable once InconsistentNaming
+                var response = await Client.GetAsync("http://transport.opendata.ch/v1/stationboard?station=Lausanne&limit=10");
                 if(response != null && response.IsSuccessStatusCode) {
-                    var responseBody = await response.Content.ReadAsStringAsync();
+                    var ResponseBody = await response.Content.ReadAsStringAsync();
                     
-                    var objResponse = JsonConvert.DeserializeObject<StationboardResult>(responseBody);
-                    if(objResponse != null)
-                        return objResponse.Stationboard;
+                    var ObjResponse = JsonConvert.DeserializeObject<StationboardResult>(ResponseBody);
+                    if(ObjResponse != null)
+                        return ObjResponse.Stationboard;
                 }
             }
             return new List<Stationboard>();
@@ -31,15 +33,24 @@ namespace AzureApiApp.Controllers
         [HttpGet("{id}")]
         public async Task<IList<Stationboard>> Get(string id)
         {
-            using (var client = new System.Net.Http.HttpClient())
+            using (var Client = new System.Net.Http.HttpClient())
             {
-                var response = await client.GetAsync($"http://transport.opendata.ch/v1/stationboard?station={id}&limit=10");
+                // ReSharper disable once InconsistentNaming
+                var response = await Client.GetAsync($"http://transport.opendata.ch/v1/stationboard?station={id}&limit=10");
                 if(response != null && response.IsSuccessStatusCode) {
-                    var responseBody = await response.Content.ReadAsStringAsync();
-                    
-                    var objResponse = JsonConvert.DeserializeObject<StationboardResult>(responseBody);
-                    if(objResponse != null)
-                        return objResponse.Stationboard;
+                    var ResponseBody = await response.Content.ReadAsStringAsync();
+
+                    try
+                    {
+                        var ObjResponse = JsonConvert.DeserializeObject<StationboardResult>(ResponseBody);
+                        if (ObjResponse != null)
+                            return ObjResponse.Stationboard;
+                    }
+                    // ReSharper disable once EmptyGeneralCatchClause
+                    catch (Exception)
+                    {
+                        
+                    }
                 }
             }
             return new List<Stationboard>();
