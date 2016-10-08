@@ -16,11 +16,23 @@ namespace AzureApiApp.Controllers
         [HttpGet]
         public async Task<IList<SectionResult>> Get()
         {
+            return await GetConnections("Lausanne, Dranse", "Nyon");
+        }
+
+        // GET api/values/5
+        [HttpGet("{origin}/{destination}")]
+        public async Task<IList<SectionResult>> Get(string origin, string destination)
+        {
+            return await GetConnections(origin, destination);
+        }
+
+        private static async Task<IList<SectionResult>> GetConnections(string origin, string destination)
+        {
             using (var Client = new System.Net.Http.HttpClient())
             {
                 // ReSharper disable once InconsistentNaming
                 var response =
-                    await Client.GetAsync(@"http://transport.opendata.ch/v1/connections?from=Lausanne, Dranse&to=Nyon");
+                    await Client.GetAsync($"http://transport.opendata.ch/v1/connections?from={origin}&to={destination}&limit=6");
                 if (response != null && response.IsSuccessStatusCode)
                 {
                     var ResponseBody = await response.Content.ReadAsStringAsync();
@@ -71,13 +83,6 @@ namespace AzureApiApp.Controllers
             return new List<SectionResult>();
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/values
         [HttpPost]
         public void Post([FromBody]string value)
@@ -111,6 +116,8 @@ namespace AzureApiApp.Controllers
         public double DepartureYCoordinate { get; set; }
         public double ArrivalXCoordinate { get; set; }
         public double ArrivalYCoordinate { get; set; }
+        public string DepartureLocation { get; set; }
+        public string ArrivalLocation { get; set; }
     }
 }
 
