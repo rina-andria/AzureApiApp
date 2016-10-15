@@ -63,8 +63,10 @@ namespace AzureApiApp.Controllers
                                         Duration = section.Arrival.ArrivalTime.Subtract(section.Departure.DepartureTime),
                                         DepartureXCoordinate = section.Departure.Location.Coordinate.X,
                                         DepartureYCoordinate = section.Departure.Location.Coordinate.Y,
+                                        DepartureLocation = $"{section.Departure.Location.Coordinate.X},{section.Departure.Location.Coordinate.Y}",
                                         ArrivalXCoordinate = section.Arrival.Location.Coordinate.X,
-                                        ArrivalYCoordinate = section.Arrival.Location.Coordinate.Y
+                                        ArrivalYCoordinate = section.Arrival.Location.Coordinate.Y,
+                                        ArrivalLocation = $"{section.Arrival.Location.Coordinate.X},{section.Arrival.Location.Coordinate.Y}"
                                     });
                                     sectionNumber++;
                                 }
