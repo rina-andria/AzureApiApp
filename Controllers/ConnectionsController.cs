@@ -28,50 +28,50 @@ namespace AzureApiApp.Controllers
 
         private static async Task<IList<SectionResult>> GetConnections(string origin, string destination)
         {
-            using (var Client = new System.Net.Http.HttpClient())
+            using (var client = new System.Net.Http.HttpClient())
             {
                 // ReSharper disable once InconsistentNaming
                 var response =
-                    await Client.GetAsync($"http://transport.opendata.ch/v1/connections?from={origin}&to={destination}&limit=6");
+                    await client.GetAsync($"http://transport.opendata.ch/v1/connections?from={origin}&to={destination}&limit=6");
                 if (response != null && response.IsSuccessStatusCode)
                 {
-                    var ResponseBody = await response.Content.ReadAsStringAsync();
+                    var responseBody = await response.Content.ReadAsStringAsync();
                     try
                     {
-                        var ObjResponse = JsonConvert.DeserializeObject<Connections>(ResponseBody);
-                        if (ObjResponse != null)
+                        var objResponse = JsonConvert.DeserializeObject<Connections>(responseBody);
+                        if (objResponse != null)
                         {
-                            var ConnectionList = ObjResponse.ConnectionsList;
+                            var connectionList = objResponse.ConnectionsList;
 
-                            var SectionResultList = new List<SectionResult>();
+                            var sectionResultList = new List<SectionResult>();
 
-                            var ConnectionNumber = 1;
-                            foreach (var Connection in ConnectionList)
+                            var connectionNumber = 1;
+                            foreach (var connection in connectionList)
                             {
-                                var SectionNumber = 1;
-                                foreach (var Section in Connection.Sections)
+                                var sectionNumber = 1;
+                                foreach (var section in connection.Sections)
                                 {
-                                    SectionResultList.Add(new SectionResult
+                                    sectionResultList.Add(new SectionResult
                                     {
-                                        ConnectionNumber = ConnectionNumber,
-                                        SectionNumer = SectionNumber,
-                                        JourneyName = Section.Journey != null ? Section.Journey.Name : "Walk",
-                                        DepartureStation = Section.Departure.Station.Name,
-                                        DepartureTime = Section.Departure.DepartureTime,
-                                        ArrivalStation = Section.Arrival.Station.Name,
-                                        Arrivaltime = Section.Arrival.ArrivalTime,
-                                        Duration = Section.Arrival.ArrivalTime.Subtract(Section.Departure.DepartureTime),
-                                        DepartureXCoordinate = Section.Departure.Location.Coordinate.X,
-                                        DepartureYCoordinate = Section.Departure.Location.Coordinate.Y,
-                                        ArrivalXCoordinate = Section.Arrival.Location.Coordinate.X,
-                                        ArrivalYCoordinate = Section.Arrival.Location.Coordinate.Y
+                                        ConnectionNumber = connectionNumber,
+                                        SectionNumer = sectionNumber,
+                                        JourneyName = section.Journey != null ? section.Journey.Name : "Walk",
+                                        DepartureStation = section.Departure.Station.Name,
+                                        DepartureTime = section.Departure.DepartureTime,
+                                        ArrivalStation = section.Arrival.Station.Name,
+                                        Arrivaltime = section.Arrival.ArrivalTime,
+                                        Duration = section.Arrival.ArrivalTime.Subtract(section.Departure.DepartureTime),
+                                        DepartureXCoordinate = section.Departure.Location.Coordinate.X,
+                                        DepartureYCoordinate = section.Departure.Location.Coordinate.Y,
+                                        ArrivalXCoordinate = section.Arrival.Location.Coordinate.X,
+                                        ArrivalYCoordinate = section.Arrival.Location.Coordinate.Y
                                     });
-                                    SectionNumber++;
+                                    sectionNumber++;
                                 }
-                                ConnectionNumber++;
+                                connectionNumber++;
                             }
 
-                            return SectionResultList;
+                            return sectionResultList;
                         }
                     }
                     catch (Exception)

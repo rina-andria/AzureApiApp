@@ -28,38 +28,38 @@ namespace AzureApiApp.Controllers
 
         private static async Task<IList<StationResult>> GetLocations(string location)
         {
-            using (var Client = new System.Net.Http.HttpClient())
+            using (var client = new System.Net.Http.HttpClient())
             {
                 // ReSharper disable once InconsistentNaming
                 var response =
-                    await Client.GetAsync($"http://transport.opendata.ch/v1/locations?query={location}");
+                    await client.GetAsync($"http://transport.opendata.ch/v1/locations?query={location}");
                 if (response != null && response.IsSuccessStatusCode)
                 {
-                    var ResponseBody = await response.Content.ReadAsStringAsync();
+                    var responseBody = await response.Content.ReadAsStringAsync();
                     try
                     {
-                        var ObjResponse = JsonConvert.DeserializeObject<Locations>(ResponseBody);
-                        if (ObjResponse != null)
+                        var objResponse = JsonConvert.DeserializeObject<Locations>(responseBody);
+                        if (objResponse != null)
                         {
-                            var StationList = ObjResponse.Stations;
+                            var stationList = objResponse.Stations;
 
-                            var StationResultList = new List<StationResult>();
+                            var stationResultList = new List<StationResult>();
 
-                            foreach (var Station in StationList)
+                            foreach (var station in stationList)
                             {
-                                StationResultList.Add(new StationResult
+                                stationResultList.Add(new StationResult
                                 {
-                                    Name = Station.Name,
-                                    CoordinateX = Station.Coordinate.X,
-                                    CoordinateY = Station.Coordinate.Y,
-                                    Location = $"{Station.Coordinate.X}, {Station.Coordinate.Y}",
-                                    Distance = Station.Distance,
-                                    Id = Station.Id,
-                                    Score = Station.Score
+                                    Name = station.Name,
+                                    CoordinateX = station.Coordinate.X,
+                                    CoordinateY = station.Coordinate.Y,
+                                    Location = $"{station.Coordinate.X}, {station.Coordinate.Y}",
+                                    Distance = station.Distance,
+                                    Id = station.Id,
+                                    Score = station.Score
                                 });
                             }
 
-                            return StationResultList;
+                            return stationResultList;
                         }
                     }
                     catch (Exception)
