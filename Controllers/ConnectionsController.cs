@@ -54,12 +54,12 @@ namespace AzureApiApp.Controllers
                                     sectionResultList.Add(new SectionResult
                                     {
                                         ConnectionNumber = connectionNumber,
-                                        SectionNumer = sectionNumber,
+                                        SectionNumber = sectionNumber,
                                         JourneyName = section.Journey != null ? section.Journey.Name : "Walk",
                                         DepartureStation = section.Departure.Station.Name,
                                         DepartureTime = section.Departure.DepartureTime,
                                         ArrivalStation = section.Arrival.Station.Name,
-                                        Arrivaltime = section.Arrival.ArrivalTime,
+                                        ArrivalTime = section.Arrival.ArrivalTime,
                                         Duration = section.Arrival.ArrivalTime.Subtract(section.Departure.DepartureTime),
                                         DepartureXCoordinate = section.Departure.Location.Coordinate.X,
                                         DepartureYCoordinate = section.Departure.Location.Coordinate.Y,
@@ -107,13 +107,13 @@ namespace AzureApiApp.Controllers
     public class SectionResult
     {
         public int ConnectionNumber { get; set; }
-        public int SectionNumer { get; set; }
+        public int SectionNumber { get; set; }
         public string JourneyName { get; set; }
         public string DepartureStation { get; set; }
         public string ArrivalStation { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime DepartureTime { get; set; }
-        public DateTime Arrivaltime { get; set; }
+        public DateTime ArrivalTime { get; set; }
         public double DepartureXCoordinate { get; set; }
         public double DepartureYCoordinate { get; set; }
         public double ArrivalXCoordinate { get; set; }
